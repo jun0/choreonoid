@@ -171,6 +171,19 @@ set(ADDITIONAL_CXX_FLAGS_RELEASE ${ADDITIONAL_CXX_FLAGS_RELEASE} CACHE STRING "A
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${EXTRA_CXX_FLAGS_RELEASE} ${ADDITIONAL_CXX_FLAGS_RELEASE}")
 
 
+option(CNOID_ENABLE_SSE "Enable SSE instructions (implies MSVC_ENABLE_SSE on VC++)." ON)
+if(CNOID_ENABLE_SSE)
+  if(MSVC)
+    set(MSVC_ENABLE_SSE ON)
+  else()
+    include("${PROJECT_SOURCE_DIR}/cmake/find_sse.cmake")
+    CNOID_CHECK_FOR_SSE()
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SSE_FLAGS}")
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SSE_FLAGS}")
+  endif()
+endif(CNOID_ENABLE_SSE)
+
+
 if(MSVC)
 
   set(ext_compiler_options "/Ob2 /Ox /Oi /Ot /Oy /GT /GS- /fp:fast")

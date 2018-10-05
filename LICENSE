@@ -30,6 +30,9 @@ THE SOFTWARE
 This software also includes the following software components which are
 copyrighted by other developers.
 
+ * SSE compiler flag detection
+   see cmake/find_sse.cmake
+
  * Double Arm Construction Robot Model
    see share/model/DoubleArmV7/LICENSE
 
